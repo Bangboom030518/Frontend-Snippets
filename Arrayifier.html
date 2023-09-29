@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        body {
+            padding: 10px;
+        }
+
+        textarea {
+            padding: 10px;
+            width: 100%;
+            height: 500px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Charlie's Wonderful Arrayifier</h1>
+    <textarea id="input"></textarea>
+    <p id="output"></p>
+    <script>
+        const input = document.querySelector("#input");
+        var process;
+        const output = document.querySelector("#output");
+        input.addEventListener("change", () => {
+            process = input.value.split("\n")
+            var i;
+            for (i = 0; i < process.length; i++) {
+                process[i] = process[i].trim()
+            }
+            process = process.join('",\n"')
+            process = '"' + process + '"'
+            output.innerText = process
+        })
+    </script>
+
+</body>
+
+</html>

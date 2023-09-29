@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        body {
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            flex-direction: column;
+        }
+
+        input {
+            padding: 10px;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Charlie's Wonderful Character-replacifier</h1>
+    <h2>Input</h2>
+    <input type="text" class="small" id="from" placeholder="Characters to replace...">
+    <br>
+    <input type="text" class="small" id="to" placeholder="Characters it should be replaced with...">
+    <br>
+    <input type="text" id="input" placeholder="Text to convert...">
+    <br>
+    <h2>Output</h2>
+    <p id="output"></p>
+    <script>
+        //the characters to replace
+        const inFrom = document.querySelector("#from");
+        var from;
+        //the characters it should be replaced with
+        var to;
+        const inTo = document.querySelector("#to");
+        var length;
+        const input = document.querySelector("#input");
+        var process;
+        const output = document.querySelector("#output");
+        input.addEventListener("change", () => {
+            process = input.value;
+            while (process.indexOf("a") > -1) {
+                process = process.split("");
+                process.splice(process.indexOf(from), length, to);
+                process = process.join("");
+            }
+            output.innerText = process;
+        })
+        inFrom.addEventListener("change", () => {
+            from = inFrom.value;
+            length = from.length;
+        })
+        inTo.addEventListener("change", () => {
+            to = inTo.value;
+        })
+    </script>
+
+</body>
+
+</html>

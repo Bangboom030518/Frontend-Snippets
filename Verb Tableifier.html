@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Covered+By+Your+Grace&display=swap");
+        input[type="checkbox"] {
+            width: 40px;
+            height: 40px;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+        }
+
+        body {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            justify-content: space-around;
+        }
+
+        div {
+            display: flex;
+            align-items: center;
+            flex-direction: row;
+            justify-content: space-around;
+        }
+
+        button {
+            width: 100px;
+            height: 20px;
+            background: green;
+        }
+
+        table {
+            width: 100%;
+            border: 2px solid #eba97a;
+            overflow: clip;
+            font-family: "Covered By Your Grace", cursive;
+        }
+
+        td,
+        th {
+            text-align: center;
+            padding: 8px;
+            overflow: clip;
+        }
+
+        tr:nth-child(even) {
+            background-color: #a97aeb;
+        }
+
+        tr:nth-child(odd) {
+            background-color: #7aeba9;
+        }
+
+        tr:nth-child(1) {
+            background-color: #eba97a;
+        }
+
+        caption {
+            font-size: 2rem;
+            text-decoration: underline;
+        }
+
+        #txtoutput {
+            height: 989px;
+            width: 356px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <datalist id="infinitives">
+        <option value="perdre"></option>
+        <option value="chanter"></option>
+        <option value="finir"></option>
+        <option value="aller"></option>
+        <option value="mourir"></option>
+        <option value="regarder"></option>
+        <option value="tomber"></option>
+        <option value="prendre"></option>
+        <option value="gagner"></option>
+    </datalist>
+    <h1>Verb Tableifier</h1>
+    <h2>Input</h2>
+    <p>Regular?</p>
+    <input type="checkbox" id="regular" />
+    <h3>Regular Input</h3>
+    <p>Verb</p>
+    <input type="text" placeholder="infinitive" id="regInput" list="infinitives">
+    <p>Auxillary Verb (Perfect Tense)</p>
+    <div>
+        <input type="radio" name="auxillary" value="avoir" id="avoir" />
+        <label for="avoir">avoir</label>
+    </div>
+    <div>
+        <input type="radio" name="auxillary" value="etre" id="etre" />
+        <label for="etre">être</label>
+    </div>
+    <h3>Irregular Input</h3>
+    <p>Verb</p>
+    <input type="text" placeholder="infinitive" id="irregInput" list="infinitives">
+    <h4>Perfect Tense</h4>
+    <input type="text" placeholder="past participle" id="pastInput">
+    <p>Auxillary Verb</p>
+    <div>
+        <input type="radio" name="irauxillary" value="avoir" id="iravoir" />
+        <label for="iravoir">avoir</label>
+    </div>
+    <div>
+        <input type="radio" name="irauxillary" value="etre" id="iretre" />
+        <label for="iretre">être</label>
+    </div>
+    <h4>Present Tense</h4>
+    <p>Je</p>
+    <input type="text" id="jeInput">
+    <p>Tu</p>
+    <input type="text" id="tuInput">
+    <p>Il/Elle/On</p>
+    <input type="text" id="ilInput">
+    <p>Nous</p>
+    <input type="text" id="nousInput">
+    <p>Vous</p>
+    <input type="text" id="vousInput">
+    <p>Ils/Elles</p>
+    <input type="text" id="ilsInput">
+    <br>
+    <button id="go">Go</button>
+    <h2>Output</h2>
+    <h3>Text Output</h3>
+    <textarea id="txtoutput"></textarea>
+    <h3>HTML Output</h3>
+    <p id="output"></p>
+    <p style="color: rgba(123, 123, 123, 0);">Le fancé le pancé</p>
+    <script>
+        //get elements
+        const btnGo = document.querySelector("#go");
+        const regular = document.querySelector("#regular");
+        const regInput = document.querySelector("#regInput");
+        const rAuxillary = document.querySelectorAll("input[name='auxillary']")
+        const irAuxillary = document.querySelectorAll("input[name='irauxillary']")
+        const irregInput = document.querySelector("#irregInput");
+        const pastInput = document.querySelector("#pastInput");
+        const jeInput = document.querySelector("#jeInput");
+        const tuInput = document.querySelector("#tuInput");
+        const ilInput = document.querySelector("#ilInput");
+        const nousInput = document.querySelector("#nousInput");
+        const vousInput = document.querySelector("#vousInput");
+        const ilsInput = document.querySelector("#ilsInput");
+        const output = document.querySelector("#output");
+        const txtOutput = document.querySelector("#txtoutput");
+        //other variables
+        var infType;
+        var je;
+        var tu;
+        var il;
+        var nous;
+        var vous;
+        var ils;
+        var past;
+        var inf;
+        var auxillary;
+        var pje;
+        var ptu;
+        var pil;
+        var pelle;
+        var pon;
+        var pnous;
+        var pvous;
+        var pils;
+        var pelles;
+        var process;
+        btnGo.addEventListener("click", () => {
+            if (regular.checked) {
+                for (var i = 0; i < rAuxillary.length; i++) {
+                    if (rAuxillary[i].checked) {
+                        auxillary = rAuxillary[i].value;
+                    }
+                }
+                inf = regInput.value;
+                var arInf = inf.split("");
+                arInf.reverse();
+                if (arInf[1].toLowerCase() == "e") {
+                    infType = "er";
+                } else if (arInf[1].toLowerCase() == "i") {
+                    infType = "ir";
+                } else if (arInf[1].toLowerCase() == "r") {
+                    infType = "re";
+                } else {
+                    alert("ERROR: undefined verb type " + arInf[1] + arInf[0])
+                }
+                if (infType == "er") {
+                    var inf2 = inf.split("");
+                    inf2.pop();
+                    inf2.pop()
+                    inf2 = inf2.join("")
+                    je = inf2 + "e";
+                    tu = inf2 + "es";
+                    il = inf2 + "e";
+                    nous = inf2 + "ons";
+                    vous = inf2 + "ez";
+                    ils = inf2 + "ent";
+                    past = inf2 + "é";
+                }
+                if (infType == "re") {
+                    var inf2 = inf.split("");
+                    inf2.pop();
+                    inf2.pop();
+                    inf2 = inf2.join("")
+                    je = inf2 + "s";
+                    tu = inf2 + "s";
+                    il = inf2;
+                    nous = inf2 + "ons";
+                    vous = inf2 + "ez";
+                    ils = inf2 + "ent";
+                    past = inf2 + "u"
+                }
+                if (infType == "ir") {
+                    var inf2 = inf.split("");
+                    inf2.pop();
+                    inf2.pop();
+                    inf2 = inf2.join("")
+                    je = inf2 + "is";
+                    tu = inf2 + "is";
+                    il = inf2 + "it";
+                    nous = inf2 + "issons";
+                    vous = inf2 + "issez";
+                    ils = inf2 + "issent";
+                    past = inf2 + "i"
+                }
+            } else {
+                for (var i = 0; i < irAuxillary.length; i++) {
+                    if (irAuxillary[i].checked) {
+                        auxillary = irAuxillary[i].value;
+                    }
+                }
+                inf = irregInput.value;
+                var arInf = inf.split("");
+                arInf.reverse();
+                if (arInf[1].toLowerCase() == "e") {
+                    infType = "er";
+                } else if (arInf[1].toLowerCase() == "i") {
+                    infType = "ir";
+                } else if (arInf[1].toLowerCase() == "r") {
+                    infType = "re";
+                } else {
+                    alert("ERROR: undefined verb type " + arInf[1] + arInf[0])
+                }
+                je = jeInput.value;
+                tu = tuInput.value;
+                il = ilInput.value;
+                nous = nousInput.value;
+                vous = vousInput.value;
+                ils = ilsInput.value;
+                past = pastInput.value;
+            }
+            if (auxillary == "avoir") {
+                pje = "J'ai " + past;
+                ptu = "Tu as " + past;
+                pil = "Il a " + past;
+                pelle = "Elle a " + past;
+                pon = "On a " + past;
+                pnous = "Nous avons " + past;
+                pvous = "Vous avez " + past;
+                pils = "Ils ont " + past;
+                pelles = "Elles ont " + past;
+            } else {
+                pje = "Je suis " + past + "(e)";
+                ptu = "Tu es " + past + "(e)";
+                pil = "Il est " + past;
+                pelle = "Elle est " + past + "e";
+                pon = "On est " + past + "(e)s";
+                pnous = "Nous sommes " + past + "(e)s";
+                pvous = "Vous êtes " + past + "(es)";
+                pils = "Ils sont " + past + "s";
+                pelles = "Elles sont " + past + "es";
+            }
+            process = `
+        <table>
+            <caption>Le verbe ${inf}</caption>
+            <tr>
+                <th>Pronoun</th>
+                <th>Present Tense</th>
+                <th>Perfect Tense</th>
+                <th>Near Future Tense</th>
+            </tr>
+            <tr>
+                <td>Je</td>
+                <td>Je ${je}</td>
+                <td>${pje}</td>
+                <td>Je vais ${inf}</td>
+            </tr>
+            <tr>
+                <td>Tu</td>
+                <td>Tu ${tu}</td>
+                <td>${ptu}</td>
+                <td>Tu vas ${inf}</td>
+            </tr>
+            <tr>
+                <td>Il</td>
+                <td>Il ${il}</td>
+                <td>${pil}</td>
+                <td>Il va ${inf}</td>
+            </tr>
+            <tr>
+                <td>Elle</td>
+                <td>Elle ${il}</td>
+                <td>${pelle}</td>
+                <td>Elle va ${inf}</td>
+            </tr>
+            <tr>
+                <td>On</td>
+                <td>On ${il}</td>
+                <td>${pon}</td>
+                <td>On va ${inf}</td>
+            </tr>
+            <tr>
+                <td>Nous</td>
+                <td>Nous ${nous}</td>
+                <td>${pnous}</td>
+                <td>Nous allons ${inf}</td>
+            <tr>
+                <td>Vous</td>
+                <td>Vous ${vous}</td>
+                <td>${pvous}</td>   
+                <td>Vous allez ${inf}</td>
+            </tr>
+            <tr>
+                <td>Ils</td>
+                <td>Ils ${ils}</td>
+                <td>${pils}</td>
+                <td>Ils vont ${inf}</td>
+            </tr>
+            <tr>
+                <td>Elles</td>
+                <td>Elles ${ils}</td>
+                <td>${pelles}</td>
+                <td>Elles vont ${inf}</td>
+            </tr>
+        </table>`
+            txtOutput.value = process;
+            output.innerHTML = process;
+            txtOutput.select();
+            txtOutput.setSelectionRange(0, 99999);
+            document.execCommand("copy");
+
+        })
+    </script>
+</body>
+
+</html>

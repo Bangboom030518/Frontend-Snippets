@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Input</title>
+    <style>
+        input:focus,
+        button:focus {
+            outline: none;
+        }
+
+        input:-webkit-autofill,
+        input:-webkit-autofill:hover,
+        input:-webkit-autofill:focus,
+        textarea:-webkit-autofill,
+        textarea:-webkit-autofill:hover,
+        textarea:-webkit-autofill:focus,
+        select:-webkit-autofill,
+        select:-webkit-autofill:hover,
+        select:-webkit-autofill:focus {
+            background-color: lightblue;
+            transition: background-color 5000s ease-in-out 0s;
+        }
+
+        /*MAIN STYLES*/
+        /*Text Input*/
+        .form {
+            width: 80%;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding: 10px;
+            height: 30px;
+            position: relative;
+            background: #7aeba9;
+        }
+
+        .form input {
+            width: 90%;
+            margin: 0;
+            height: 20px;
+            border: none;
+            z-index: 1;
+            position: absolute;
+            background: none;
+            text-align: center;
+        }
+
+        .form span {
+            color: #a97aeb;
+            transition: all 0.15s cubic-bezier(0.1, 0.2, 0.8, 1.0);
+            position: absolute;
+            top: calc(100% - 1px);
+            width: 0;
+            margin: 0;
+            border-bottom: 5px solid #eba97a;
+        }
+
+        .form span::before {
+            content: "Type Here";
+            font-size: 1rem;
+            transition: all 0.15s cubic-bezier(0.1, 0.2, 0.8, 1.0);
+            left: 50%;
+            transform: translate(-50%, -150%);
+            position: absolute;
+            text-align: center;
+            width: 200px;
+        }
+
+        .form input:focus+span {
+            width: 100%;
+        }
+
+        .form input:valid+span {
+            width: 100%;
+        }
+
+        .form input:-webkit-autofill+span {
+            width: 100%;
+        }
+
+        .form input:focus+span::before {
+            font-size: 0.75rem;
+            transform: translate(-50%, -300%);
+        }
+
+        .form input:valid+span::before {
+            font-size: 0.75rem;
+            transform: translate(-50%, -300%);
+        }
+
+        .form input:-webkit-autofill+span::before {
+            font-size: 0.75rem;
+            transform: translate(-50%, -300%);
+        }
+
+        /*Button*/
+        .submit {
+            width: calc(80% + 20px);
+            margin: auto;
+            height: 63px;
+            font-size: 14px;
+            border: 3px solid #7aeba9;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            text-align: center;
+            color: #222222;
+            transition: all 0.15s cubic-bezier(0.1, 0.4, 0.8, 1.0);
+        }
+
+        .submit:hover {
+            background-color: #7aeba9;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            cursor: pointer;
+        }
+
+        .submit:focus {
+            background-color: #eba97a;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="form">
+        <input type="text" name="input" id="input" required>
+        <span>Type Here</span>
+    </div>
+    <br>
+    <button class="submit">Click me</button>
+</body>
+
+</html>
